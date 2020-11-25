@@ -1,0 +1,105 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>DATA KARYAWAN</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-button color="primary" (click)="open(addKaryawan)">
+        <ion-icon name="person-add-outline" slot="start"></ion-icon>
+        Tambah
+    </ion-button>
+
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Alamat</th>
+                <th scope="col">Jabatan</th>
+                <th scope="col">Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let list of listKaryawan; index as i">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{list.Nama}}</td>
+                <td>{{list.Alamat}}</td>
+                <td>{{list.Jabatan}}</td>
+                <td>
+                    <ion-button color="primary" size='small' fill='outline' (click)="openEdit(edtKry)" (click)="EditRecord(list)">
+                        <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+                    </ion-button>
+                    <ion-button color="danger" size='small' (click)="HapusKaryawan(list.id)">
+                        <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                    </ion-button>
+                </td>
+
+                <ng-template #edtKry let-c="close" let-d="dismiss">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal-basic-title">
+                            <ion-icon name="person-edit-outline" slot="icon-only"></ion-icon>Perbarui Data</h4>
+                        <ion-button size="small" color="primary" fill="outline" (click)="d('Cross click')">
+                            <ion-icon name="close-circle-outline"></ion-icon>
+                        </ion-button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="formEdit">
+                            <ion-item>
+                                <ion-label position="floating">Nama</ion-label>
+                                <ion-input type="text" formControlName="Nama" [(ngModel)]="list.EditNama"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label position="floating">Alamat</ion-label>
+                                <ion-input formControlName="Alamat" [(ngModel)]="list.EditAlamat"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label position="floating">Jabatan</ion-label>
+                                <ion-input type="text" formControlName="Jabatan" [(ngModel)]="list.EditJabatan"></ion-input>
+                            </ion-item>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <ion-button color="primary" size="small" [disabled]="formEdit.invalid" (click)="UpdateRecord(list)" (click)="c('Save click')">
+                            <ion-icon slot="start" name="add"></ion-icon>Perbarui</ion-button>
+                        <ion-button color="danger" size="small" (click)="c('Close click')">
+                            <ion-icon slot="start" name="close"></ion-icon>Close</ion-button>
+                    </div>
+                </ng-template>
+            </tr>
+        </tbody>
+    </table>
+
+    <ng-template #addKaryawan let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">
+                <ion-icon name="person-add-outline" slot="icon-only"></ion-icon>Tambah</h4>
+            <ion-button size="small" color="primary" fill="outline" (click)="d('Cross click')">
+                <ion-icon name="close-circle-outline"></ion-icon>
+            </ion-button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="formTambah" (ngSubmit)="AddKaryawan()">
+                <ion-item>
+                    <ion-label position="floating">Nama</ion-label>
+                    <ion-input type="text" formControlName="Nama"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Alamat</ion-label>
+                    <ion-input formControlName="Alamat"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Jabatan</ion-label>
+                    <ion-input type="text" formControlName="Jabatan"></ion-input>
+                </ion-item>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <ion-button color="primary" size="small" (click)="c('Save click')" (click)="AddKaryawan()" [disabled]="formTambah.invalid">
+                <ion-icon slot="start" name="add"></ion-icon>Tambah</ion-button>
+            <ion-button color="danger" size="small" (click)="c('Save click')">
+                <ion-icon slot="start" name="close"></ion-icon>Close</ion-button>
+        </div>
+    </ng-template>
+
+</ion-content>

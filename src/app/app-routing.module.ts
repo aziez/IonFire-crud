@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'karyawan',
+    loadChildren: () => import('./karyawan/karyawan.module').then( m => m.KaryawanPageModule)
+  },
 ];
 
 @NgModule({
