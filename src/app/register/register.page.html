@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>Register</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <form class="form" [formGroup]="formValidator" (ngSubmit)="tryRegister(formValidator.value)">
+
+        <ion-item>
+            <ion-label position="floating" color="primary">Email</ion-label>
+            <ion-input type="text" formControlName="email"></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+            <ng-container *ngFor="let validation of pesanValidasi.email">
+                <div class="error-message" *ngIf="formValidator.get('email').hasError(validation.type) && (formValidator.get('email').dirty || formValidator.get('email').touched)">
+                    {{ validation.message }}
+                </div>
+            </ng-container>
+        </div>
+
+        <ion-item>
+            <ion-label position="floating" color="primary">Password</ion-label>
+            <ion-input type="password" formControlName="password" class="form-controll" required></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+            <ng-container *ngFor="let validation of pesanValidasi.password">
+                <div class="error-message" *ngIf="formValidator.get('password').hasError(validation.type) && (formValidator.get('password').dirty || formValidator.get('password').touched)">
+                    {{ validation.message }}
+                </div>
+            </ng-container>
+        </div>
+
+
+        <ion-button class="submit-btn" type="submit" [disabled]="!formValidator.valid">Register</ion-button>
+        <label class="error-message">{{pesanError}}</label>
+        <label class="success-message">{{pesanBerhasil}}</label>
+    </form>
+    <p class="go-to-login">Already have an account? <a routerLink='/login'>Try to Log In.</a></p>
+</ion-content>
