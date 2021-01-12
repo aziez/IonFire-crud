@@ -1,2 +1,2 @@
 # IonFire-crud
-Projek CRUD dengan Angukar Ionic menggunakan Firebase dengan FireStore Services 
+Projek CRUD dengan Angular Ionic menggunakan Firebase dengan FireStore Services 
